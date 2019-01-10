@@ -38,13 +38,14 @@ components is provided in the following sections.
 A set of various howto's examples.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    howto/index
 
+
 .. raw:: html
    
-   <h2>Available models</h2>
+   <h2>Models</h2>
 
 The following sections provide information on how several deep learning models
 have been developed and integrated with our platform.

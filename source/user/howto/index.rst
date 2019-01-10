@@ -7,5 +7,6 @@ HowTo's
    :glob:
 
    try-model-locally
+   train-model-locally
    develop-model
    rclone

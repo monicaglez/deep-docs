@@ -1,8 +1,9 @@
-Train a model locally
-=====================
+.. highlight:: console
 
-This is a step by step guide on how to train a model from the Marketplace with your own dataset.
-You can also look at `video demo <https://www.youtube.com/watch?v=Mh6rdlqX-7I&feature=youtu.be>`_ on how to do this.
+*******************
+Try a model locally
+*******************
+
 
 1. Get Docker
 -------------
@@ -10,45 +11,64 @@ You can also look at `video demo <https://www.youtube.com/watch?v=Mh6rdlqX-7I&fe
 The first step is having `Docker <https://www.docker.com>`_ installed. To have an up-to-date installation please follow
 the `official Docker installation guide <https://docs.docker.com/install>`_.
 
+
 2. Search for a model in the marketplace
 ----------------------------------------
 
-.. todo:: Add link to 'model' tag in the marketplace, add link to image classifier
-
-The next step is to look for a model in the marketplace you want to retrain on your own data.
-Possible option include image classifiers, etc.
+The next step is to look for a model 
+in the `DEEP Open Catalog marketplace <https://marketplace.deep-hybrid-datacloud.eu/>`_
+you want to try locally.  
+The marketplace contains an extensible list of existing models e.g. 
+	`DEEP OC Image Classification <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-image-classification-tensorflow.html>`_,
+	`DEEP OC Retinopathy <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-retinopathy.html>`_,
+	`DEEP OC Massive Online Data Streams <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-massive-online-data-streams.html>`_,
+	`DEEP OC Seed Classification <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-seed-classification-theano.html>`_,
+	`DEEP OC Phytopankton (Theano) <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-phytopankton-theano.html>`_,
+	`DEEP OC Conus Classification <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-conus-classification-theano.html>`_, 
+	`DEEP OC dogs breed determination <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-dogs-breed-determination.html>`_, 
+	and many more.
+	
 
 3. Get the model
 ----------------
 
-.. todo:: Check that names of the docker containers are correct for the image classifier example.
+You will find that each model has an associate Docker container in DockerHub
+	`DEEP OC Image Classification <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-image-classification-tensorflow.html>`_
+	is associated with `deephdc/deep-oc-image-classification-tf <https://hub.docker.com/r/deephdc/deep-oc-image-classification-tf>`_,
+	`DEEP OC Massive Online Data Streams <https://marketplace.deep-hybrid-datacloud.eu/models/deep-oc-massive-online-data-streams.html>`_
+	is associated with `deephdc/deep-oc-mods <https://hub.docker.com/r/deephdc/deep-oc-mods>`_, etc.
 
-You will find that your model has an associate Docker container in DockerHub. Please download and run the container with:
+Let call the model you selected ``deep-oc-model_of_interest``. 
+Please, download the container with:
 
-.. code-block:: bash
+::
 
-    docker pull dockerhub_url
-    docker run -p 5000:5000 -p 6006:6006 -ti container_name /bin/bash
+    $ docker pull deephdc/deep-oc-model_of_interest
+    
 
-For example if you wanted to download the image classifier model you would have to run:
+4. Run the model
+----------------
 
-.. code-block:: bash
+Run the container with:
+::
 
-    docker pull https://hub.docker.com/r/deephdc/deep-oc-image-classification-tf
-    docker run -p 5000:5000 -p 6006:6006 -ti imgclas-tf-normal /bin/bash
+	$ docker run -ti -p 5000:5000 deephdc/deep-oc-model_of_interest
+	
 
-We are using the port ``5000`` to deploy the API and the port ``6006`` to monitor the training (for example using
-`Tensorboard <https://www.tensorflow.org/guide/summaries_and_tensorboard>`_).
+5. Go to the API, get the results
+---------------------------------
 
-4. Upload your data to storage resources
-----------------------------------------
+Once running, point your browser to `http://127.0.0.1:5000/ <http://127.0.0.1:5000/>`_ 
+and you will see the API documentation, 
+where you can test the model functionality, as well as perform other actions.
 
-.. todo:: Lara and Valentin: Fill this section. Look at the possibility of using rclone with Google Drive, Dropbox, etc.
+All models in the `DEEP Open Catalog marketplace <https://marketplace.deep-hybrid-datacloud.eu/>`_
+utilize `DEEPaaS API <https://github.com/indigo-dc/DEEPaaS>`_.
+The API enables a user friendly interaction with the underlying Deep Learning models and 
+can be used both for training and inference with the models.
 
-5. Train the model
-------------------
+.. image:: ../../_static/deepaas.png
 
-Now comes the fun! Go to `<http://0.0.0.0:5000>`_ and look for the train mehod. Modify the training parameters you wish to
-change and execute. If some kind of monitorization tool is available for this model you will be able to folllow the training
-progress from `<http://0.0.0.0:6006>`_.
-
+The concrete results can vary from model to model e.g. 
+the results of ``deephdc/deep-oc-image-classification-tf`` are image type(s) and picture(s),
+the results of ``deephdc/deep-oc-mods`` are predicted values (float numbers).
