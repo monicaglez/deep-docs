@@ -1,5 +1,6 @@
-Examples
-========
+==================
+Available models
+==================
 
 .. toctree::
    :maxdepth: 1

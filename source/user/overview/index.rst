@@ -1,5 +1,6 @@
+=========
 Overview
-========
+=========
 
 .. toctree::
    :maxdepth: 1
@@ -7,8 +8,5 @@ Overview
 
    architecture
    user-roles
-   cookiecutter
-   develop-model
-   train-model-locally
-   try-model-locally
+   cookiecutter-template
    api
