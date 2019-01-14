@@ -98,7 +98,7 @@ You don't need to implement all of them, just the ones you need.
 
 
 3. Create a docker containe for your model
-=========================================
+------------------------------------------
 
 Once your model is well in place, you can encapsulate it by creating a docker container. For this you need to create a Dockerfile. This file will contain the information about the Docker, including the type of operating system you want to run on and the packages you need installed to make your package run.
 
@@ -114,11 +114,8 @@ The simplest Dockerfile could look like this::
     	python -m pip install -e . && \
 	cd ..
 
-	#Download and install DEEPaaS API
-	RUN git clone https://github.com/indigo-dc/DEEPaaS.git && \
-    	cd DEEPaaS && \
-    	python -m pip install -U . && \
-    	cd ..
+	#Install DEEPaaS API
+	pip install deepaas
 
 	# Install rclone
 	RUN wget https://downloads.rclone.org/rclone-current-linux-amd64.deb && \
